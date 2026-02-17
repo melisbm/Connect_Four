@@ -33,4 +33,8 @@ public class Player {
         this.isWinner = true;
     }
 
+    public String getPlayerName(){
+        return playerName;
+    }
+
 }
