@@ -7,11 +7,11 @@ public class Board {
     private int[] columnCoins = new int[columns];
 
     //played area
-    private int left;
-    private int right;
+    private int left = Integer.MAX_VALUE;
+    private int right = Integer.MIN_VALUE;
 
-    private int height;
-    private int width;
+    private int height = 0;
+    private int width = 0;
 
     private int coinsOnBoard = 0;
 
@@ -43,13 +43,27 @@ public class Board {
     }
 
     public void updateBoardOnColumn(int indexOfColumn, Coin coin){
-        char coinColor = coin.getColor();
-
         int coinsInColumn = columnCoins[indexOfColumn]++;
         int indexOfRow = rows - coinsInColumn - 1;
 
-        boardCells[indexOfRow][indexOfColumn] = coinColor;
+        boardCells[indexOfRow][indexOfColumn] = coin.getColor();
         coinsOnBoard++;
+
+        if(indexOfColumn < left){
+            left = indexOfColumn;
+        }
+
+        if(indexOfColumn > right){
+            right = indexOfColumn;
+        }
+
+        if(columnCoins[indexOfColumn] > height){
+            height = columnCoins[indexOfColumn];
+        }
+
+        width = right - left + 1;
+
+        System.out.printf("\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n\n", left, right, height, width);
     }
 
     private boolean isWinRound(){
@@ -58,10 +72,10 @@ public class Board {
     }
 
     private boolean checkRows(){
-
+        return false;
     }
 
     private boolean checkColumns(){
-
+        return false;
     }
 }
