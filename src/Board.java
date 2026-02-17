@@ -67,7 +67,9 @@ public class Board {
     }
 
     private boolean isWinRound(){
-        if(coinsOnBoard < 7) { return false; }
+        if(coinsOnBoard < 7) {
+            return false;
+        }
         return false;
     }
 
