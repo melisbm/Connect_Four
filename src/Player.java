@@ -4,7 +4,6 @@ public class Player {
 
     private boolean isWinner = false;
     private boolean firstTurn = false;
-    private boolean isTurn = false;
 
     public static int totalPlayers = 0;
 
