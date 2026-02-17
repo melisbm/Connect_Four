@@ -18,5 +18,6 @@ public class Main {
             board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn));
         }
 
+        sc.close();
     }
 }
