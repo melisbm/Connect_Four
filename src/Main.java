@@ -26,7 +26,7 @@ public class Main {
         int turnCount = 0;
 
         while(true){
-            int playerTurn = (turnCount++ % 2) + 1;
+            int playerTurn = (turnCount % 2) + 1;
             String playerName;
 
             if (playerTurn == 1){
@@ -35,15 +35,21 @@ public class Main {
             else{
                 playerName = player2.getPlayerName();
             }
-
+            System.out.println(board.boardInfo());
             System.out.println(board.boardToString());
-
 
             System.out.printf("\n(%s) Select a column (1 - 7): ", playerName);
 
             int indexOfColumnPick = sc.nextInt() - 1;
 
-            board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn));
+            if(board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
+                turnCount++;
+            }
+            else{
+                System.out.print("\nColumn must not overflow, pick another column.");
+                sc.nextLine();
+                sc.nextLine();
+            }
         }
 
         //sc.close();

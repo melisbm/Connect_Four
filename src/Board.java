@@ -42,12 +42,17 @@ public class Board {
         return sb.toString();
     }
 
-    public void updateBoardOnColumn(int indexOfColumn, Coin coin){
-        int coinsInColumn = columnCoins[indexOfColumn]++;
+    public boolean updateBoardOnColumn(int indexOfColumn, Coin coin){
+        int coinsInColumn = columnCoins[indexOfColumn];
+        if(coinsInColumn + 1 > rows){
+            return false;
+        }
+
         int indexOfRow = rows - coinsInColumn - 1;
 
         boardCells[indexOfRow][indexOfColumn] = coin.getColor();
         coinsOnBoard++;
+        columnCoins[indexOfColumn]++;
 
         if(indexOfColumn < left){
             left = indexOfColumn;
@@ -63,7 +68,11 @@ public class Board {
 
         width = right - left + 1;
 
-        System.out.printf("\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n\n", left, right, height, width);
+        return true;
+    }
+
+    public String boardInfo(){
+        return String.format("\nPlayed area:\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n", left, right, height, width);
     }
 
     private boolean isWinRound(){
