@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Board {
     private int rows = 6;
     private int columns = 7;
@@ -55,11 +57,24 @@ public class Board {
 
     public boolean updateBoardOnColumn(int indexOfColumn, Coin coin){
 
+        indexOfColumn -= 1;
+
+        if(indexOfColumn < 0 || indexOfColumn >= columns){
+            System.out.print("\nInvalid column. Pick another column: ");
+            return true;
+        }
+
         int coinsInColumn = columnCoins[indexOfColumn];
 
         if(columnOverflow(coinsInColumn)){
-            return false;
+            System.out.print("\nColumn is full. Pick another column: ");
+            return true;
         }
+
+        if(columnOverflow(coinsInColumn)){
+            return true;
+        }
+
         int indexOfRow = rows - coinsInColumn - 1;
 
         boardCells[indexOfRow][indexOfColumn] = coin.getColor();
@@ -80,11 +95,11 @@ public class Board {
 
         width = right - left + 1;
 
-        return true;
+        return false;
     }
 
     public boolean columnOverflow(int coinsInColumn){
-        return coinsInColumn > 7;
+        return coinsInColumn >= rows;
     }
 
     public String boardInfo(){

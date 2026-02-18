@@ -9,7 +9,7 @@ public class Player {
 
     public Player(String playerName){
         if(totalPlayers++ == 0){
-            setFisrtTurn();
+            setFirstTurn();
         }
 
         if(playerName != null){
@@ -20,7 +20,7 @@ public class Player {
         }
     }
 
-    public void setFisrtTurn() {
+    public void setFirstTurn() {
         this.firstTurn = true;
     }
 

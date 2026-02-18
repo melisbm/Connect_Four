@@ -52,17 +52,14 @@ public class Main {
 
             System.out.printf("\n(%s) Select a column (1 - 7): ", currentPlayer);
 
-            int indexOfColumnPick = sc.nextInt() - 1;
+            int indexOfColumnPick = sc.nextInt();
 
-            if(board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
-
-                turnCount++;
-            }
-            else{
-                System.out.print("\nColumn must not overflow, pick another column.");
-                sc.nextLine();
+            while(board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
+                indexOfColumnPick = sc.nextInt();
                 sc.nextLine();
             }
+            turnCount++;
+
         }
     }
 
