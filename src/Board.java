@@ -33,31 +33,38 @@ public class Board {
     }
 
     public String boardToString(){
+
         StringBuilder sb = new StringBuilder();
+
         sb.append("+").append("-".repeat((columns * 2) - 1)).append("+\n");
 
         for(int i = 0; i < rows; i++){
             sb.append("|");
+
             for(int j = 0; j < columns; j++){
                 sb.append(boardCells[i][j]).append("|");
             }
+
             sb.append("\n");
         }
+
         sb.append("+").append("-".repeat((columns * 2) - 1)).append("+");
+
         return sb.toString();
     }
 
     public boolean updateBoardOnColumn(int indexOfColumn, Coin coin){
+
         int coinsInColumn = columnCoins[indexOfColumn];
 
-        if(coinsInColumn + 1 > rows){
+        if(columnOverflow(coinsInColumn)){
             return false;
         }
-
         int indexOfRow = rows - coinsInColumn - 1;
 
         boardCells[indexOfRow][indexOfColumn] = coin.getColor();
         coinsOnBoard++;
+        columnCoins[indexOfColumn]++;
 
         if(indexOfColumn < left){
             left = indexOfColumn;
@@ -71,39 +78,73 @@ public class Board {
             height = columnCoins[indexOfColumn];
         }
 
-        columnCoins[indexOfColumn]++;
-
         width = right - left + 1;
 
         return true;
+    }
+
+    public boolean columnOverflow(int coinsInColumn){
+        return coinsInColumn > 7;
     }
 
     public String boardInfo(){
         return String.format("\nPlayed area:\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n", left, right, height, width);
     }
 
-//    private boolean isWinRound(){
-//        boolean enoughCoinsOnBoard = coinsOnBoard >= 7;
-//
-//        if(enoughCoinsOnBoard) {
-//            if(){
-//
-//            }
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//    private boolean checkRows(){
-//        if(){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    private boolean checkColumns(){
-//        return false;
-//    }
+    private boolean isWinRound(){
+
+        boolean enoughCoinsOnBoard = coinsOnBoard >= 7;
+
+        if(enoughCoinsOnBoard) {
+
+            if(width >= 4 && checkColumns()){
+                return true;
+            }
+            if(height >= 4){
+                return checkRows();
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkRows(){
+
+        if(width >= 4){
+
+            for(int i = 0; i < rows; i++){
+
+                for(int start = 0; start <= columns - 4; start++){
+
+                    if(boardCells[i][start] != ' ' &&
+                            boardCells[i][start] == boardCells[i][start + 1] &&
+                            boardCells[i][start] == boardCells[i][start + 2] &&
+                            boardCells[i][start] == boardCells[i][start + 3]){
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean checkColumns(){
+        int start = left;
+
+        for(int i = 0; i < width; i++){
+
+            while(start <= right && width - start >= 4){
+
+                for(int j = start; j < start + 4; j++){
+
+                }
+                start++;
+            }
+
+        }
+
+        return false;
+    }
 }
