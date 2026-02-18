@@ -20,10 +20,15 @@ public class Board {
     }
 
     public void resetBoard(){
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < columns; j++){
-                boardCells[i][j] = ' ';
+
+        for(int j = 0; j < rows; j++){
+            char[] emptyRow = new char[columns];
+
+            for(int i = 0; i < columns; i++){
+                emptyRow[i] = ' ';
             }
+
+            boardCells[j] = emptyRow;
         }
     }
 
@@ -77,18 +82,28 @@ public class Board {
         return String.format("\nPlayed area:\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n", left, right, height, width);
     }
 
-    private boolean isWinRound(){
-        if(coinsOnBoard < 7) {
-            return false;
-        }
-        return false;
-    }
-
-    private boolean checkRows(){
-        return false;
-    }
-
-    private boolean checkColumns(){
-        return false;
-    }
+//    private boolean isWinRound(){
+//        boolean enoughCoinsOnBoard = coinsOnBoard >= 7;
+//
+//        if(enoughCoinsOnBoard) {
+//            if(){
+//
+//            }
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
+//
+//    private boolean checkRows(){
+//        if(){
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private boolean checkColumns(){
+//        return false;
+//    }
 }
