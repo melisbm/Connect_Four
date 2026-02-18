@@ -1,6 +1,16 @@
 import java.util.*;
 
 public class Main {
+
+    public static Scanner sc = new Scanner(System.in);
+
+    public static Player player1;
+    public static Player player2;
+
+    public static int turnCount = 0;
+
+    public static Board board;
+
     public static void askForPlayersName(Player player1, Player player2, Scanner sc){
         System.out.print("Do you want to set custom player names? (y/N): ");
         String chooseNamesInput = sc.nextLine().trim().toLowerCase();
@@ -14,17 +24,18 @@ public class Main {
         }
     }
 
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-
-        Player player1 = new Player(null);
-        Player player2 = new Player(null);
+    public static void gameSetUp(){
+        player1 = new Player(null);
+        player2 = new Player(null);
 
         askForPlayersName(player1, player2, sc);
 
-        Board board = new Board();
-        int turnCount = 0;
+        board = new Board();
 
+        turnCount = 0;
+    }
+
+    public static void gameLoop(){
         while(true){
             int playerTurn = (turnCount % 2) + 1;
             String playerName;
@@ -51,6 +62,11 @@ public class Main {
                 sc.nextLine();
             }
         }
+    }
+
+    public static void main(String[] args){
+        gameSetUp();
+        gameLoop();
 
         //sc.close();
     }

@@ -44,6 +44,7 @@ public class Board {
 
     public boolean updateBoardOnColumn(int indexOfColumn, Coin coin){
         int coinsInColumn = columnCoins[indexOfColumn];
+
         if(coinsInColumn + 1 > rows){
             return false;
         }
@@ -52,7 +53,6 @@ public class Board {
 
         boardCells[indexOfRow][indexOfColumn] = coin.getColor();
         coinsOnBoard++;
-        columnCoins[indexOfColumn]++;
 
         if(indexOfColumn < left){
             left = indexOfColumn;
@@ -65,6 +65,8 @@ public class Board {
         if(columnCoins[indexOfColumn] > height){
             height = columnCoins[indexOfColumn];
         }
+
+        columnCoins[indexOfColumn]++;
 
         width = right - left + 1;
 
