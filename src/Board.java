@@ -61,14 +61,14 @@ public class Board {
 
         if(indexOfColumn < 0 || indexOfColumn >= columns){
             System.out.print("\nInvalid column. Pick another column: ");
-            return true;
+            return false;
         }
 
         int coinsInColumn = columnCoins[indexOfColumn];
 
         if(columnOverflow(coinsInColumn)){
             System.out.print("\nColumn is full. Pick another column: ");
-            return true;
+            return false;
         }
 
         if(columnOverflow(coinsInColumn)){
@@ -95,7 +95,7 @@ public class Board {
 
         width = right - left + 1;
 
-        return false;
+        return true;
     }
 
     public boolean columnOverflow(int coinsInColumn){
@@ -106,17 +106,17 @@ public class Board {
         return String.format("\nPlayed area:\nLeft: %d\nRight: %d\nHeight: %d\nWidth: %d\n", left, right, height, width);
     }
 
-    private boolean isWinRound(){
+    public boolean isWinRound(){
 
         boolean enoughCoinsOnBoard = coinsOnBoard >= 7;
 
         if(enoughCoinsOnBoard) {
 
-            if(width >= 4 && checkColumns()){
-                return true;
+            if(width >= 4){
+                return checkRows();
             }
             if(height >= 4){
-                return checkRows();
+                return false;
             }
         }
 
@@ -135,7 +135,6 @@ public class Board {
                             boardCells[i][start] == boardCells[i][start + 1] &&
                             boardCells[i][start] == boardCells[i][start + 2] &&
                             boardCells[i][start] == boardCells[i][start + 3]){
-
                         return true;
                     }
                 }
@@ -161,5 +160,9 @@ public class Board {
         }
 
         return false;
+    }
+
+    public int getCoinsOnBoard(){
+        return coinsOnBoard;
     }
 }

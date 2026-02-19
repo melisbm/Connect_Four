@@ -36,7 +36,9 @@ public class Main {
     }
 
     public static void gameLoop(){
-        while(true){
+
+        while(!board.isWinRound()){
+
             int playerTurn = (turnCount % 2) + 1;
             String currentPlayer;
 
@@ -54,12 +56,17 @@ public class Main {
 
             int indexOfColumnPick = sc.nextInt();
 
-            while(board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
+            while(!board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
                 indexOfColumnPick = sc.nextInt();
                 sc.nextLine();
             }
-            turnCount++;
 
+            if(board.isWinRound()){
+                System.out.println("\n==Game Over==");
+                System.out.println(currentPlayer + " WINS");
+            }
+
+            turnCount++;
         }
     }
 
