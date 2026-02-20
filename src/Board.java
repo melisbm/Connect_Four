@@ -125,18 +125,15 @@ public class Board {
 
     public boolean checkRows(){
 
-        if(width >= 4){
+        for(int i = 0; i < rows; i++){
 
-            for(int i = 0; i < rows; i++){
+            for(int start = 0; start <= columns - 4; start++){
 
-                for(int start = 0; start <= columns - 4; start++){
-
-                    if(boardCells[i][start] != ' ' &&
-                            boardCells[i][start] == boardCells[i][start + 1] &&
-                            boardCells[i][start] == boardCells[i][start + 2] &&
-                            boardCells[i][start] == boardCells[i][start + 3]){
-                        return true;
-                    }
+                if(boardCells[i][start] != ' ' &&
+                        boardCells[i][start] == boardCells[i][start + 1] &&
+                        boardCells[i][start] == boardCells[i][start + 2] &&
+                        boardCells[i][start] == boardCells[i][start + 3]){
+                    return true;
                 }
             }
         }
@@ -145,22 +142,36 @@ public class Board {
     }
 
     private boolean checkColumns(){
+        for(int i = 0; i < columns; i++){
 
-        if(height >= 4){
+            for(int start = left; start <= rows - 4; start++){
 
-            for(int i = 0; i < columns; i++){
-
-                for(int start = left; start <= rows - 4; start++){
-
-                    if(boardCells[start][i] != ' ' &&
-                            boardCells[start][i] == boardCells[start + 1][i] &&
-                            boardCells[start][i] == boardCells[start + 2][i] &&
-                            boardCells[start][i] == boardCells[start + 3][i]){
-                        return true;
-                    }
+                if(boardCells[start][i] != ' ' &&
+                        boardCells[start][i] == boardCells[start + 1][i] &&
+                        boardCells[start][i] == boardCells[start + 2][i] &&
+                        boardCells[start][i] == boardCells[start + 3][i]){
+                    return true;
                 }
             }
         }
+
+        return false;
+    }
+
+    private boolean checkDiagonal(){
+        for(int i = 0; i < columns; i++){
+
+            for(int start = left; start <= rows - 4; start++){
+
+                if(boardCells[start][i] != ' ' &&
+                        boardCells[start][i] == boardCells[start + 1][i] &&
+                        boardCells[start][i] == boardCells[start + 2][i] &&
+                        boardCells[start][i] == boardCells[start + 3][i]){
+                    return true;
+                }
+            }
+        }
+
 
         return false;
     }
