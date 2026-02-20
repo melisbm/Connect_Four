@@ -116,7 +116,7 @@ public class Board {
                 return checkRows();
             }
             if(height >= 4){
-                return false;
+                return checkColumns();
             }
         }
 
@@ -145,18 +145,21 @@ public class Board {
     }
 
     private boolean checkColumns(){
-        int start = left;
 
-        for(int i = 0; i < width; i++){
+        if(height >= 4){
 
-            while(start <= right && width - start >= 4){
+            for(int i = 0; i < columns; i++){
 
-                for(int j = start; j < start + 4; j++){
+                for(int start = left; start <= rows - 4; start++){
 
+                    if(boardCells[start][i] != ' ' &&
+                            boardCells[start][i] == boardCells[start + 1][i] &&
+                            boardCells[start][i] == boardCells[start + 2][i] &&
+                            boardCells[start][i] == boardCells[start + 3][i]){
+                        return true;
+                    }
                 }
-                start++;
             }
-
         }
 
         return false;

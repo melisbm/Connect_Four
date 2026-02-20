@@ -64,6 +64,7 @@ public class Main {
             if(board.isWinRound()){
                 System.out.println("\n==Game Over==");
                 System.out.println(currentPlayer + " WINS");
+                System.out.println(board.boardToString());
             }
 
             turnCount++;
