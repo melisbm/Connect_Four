@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Main {
 
-    public static Scanner sc = new Scanner(System.in);
-
     public static Player player1;
     public static Player player2;
 
@@ -24,7 +22,7 @@ public class Main {
         }
     }
 
-    public static void gameSetUp(){
+    public static void gameSetUp(Scanner sc){
         player1 = new Player(null);
         player2 = new Player(null);
 
@@ -35,24 +33,27 @@ public class Main {
         turnCount = 0;
     }
 
-    public static void gameLoop(){
+    public static String getCurrentPlayerName(int playerTurn){
+        if (playerTurn == 1){
+            return player1.getPlayerName();
+        }
+        else{
+            return player2.getPlayerName();
+        }
+    }
+
+    public static void gameLoop(Scanner sc){
 
         while(!board.isWinRound()){
 
             int playerTurn = (turnCount % 2) + 1;
-            String currentPlayer;
 
-            if (playerTurn == 1){
-                currentPlayer = player1.getPlayerName();
-            }
-            else{
-                currentPlayer = player2.getPlayerName();
-            }
+            String currentPlayerName = getCurrentPlayerName(playerTurn);
 
             System.out.println(board.boardInfo());
             System.out.println(board.boardToString());
 
-            System.out.printf("\n(%s) Select a column (1 - 7): ", currentPlayer);
+            System.out.printf("\n(%s) Select a column (1 - 7): ", currentPlayerName);
 
             int indexOfColumnPick = sc.nextInt();
 
@@ -63,7 +64,7 @@ public class Main {
 
             if(board.isWinRound()){
                 System.out.println("\n==Game Over==");
-                System.out.println(currentPlayer + " WINS");
+                System.out.println(currentPlayerName + " WINS");
                 System.out.println(board.boardToString());
             }
 
@@ -72,9 +73,11 @@ public class Main {
     }
 
     public static void main(String[] args){
-        gameSetUp();
-        gameLoop();
+        Scanner sc = new Scanner(System.in);
 
-        //sc.close();
+        gameSetUp(sc);
+        gameLoop(sc);
+
+        sc.close();
     }
 }
