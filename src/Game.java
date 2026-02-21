@@ -26,6 +26,7 @@ public class Game {
     public void startGame(){
         gameSetUp();
         gameLoop();
+        sc.close();
     }
 
     private void gameSetUp(){
