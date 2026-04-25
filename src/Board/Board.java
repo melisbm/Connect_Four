@@ -77,7 +77,7 @@ public class Board {
 
         int indexOfRow = rows - coinsInColumn - 1;
 
-        boardCells[indexOfRow][indexOfColumn] = coin.getColor();
+        boardCells[indexOfRow][indexOfColumn] = coin.getCharacter();
         coinsOnBoard++;
         columnCoins[indexOfColumn]++;
 

@@ -1,22 +1,16 @@
 package Board;
 
 public class Coin {
-    private char color = 'R';
-    private int[] boardPosition = new int[2];
 
-    public Coin(int playerTurn){
-        this.color = (playerTurn == 1) ? 'R' : 'Y';
+    public static final char RED_COIN_CHARACTER = 'R';
+    public static char YELLOW_COIN_CHARACTER = 'Y';
+    public char character;
+
+    public Coin(char character){
+        this.character = character;
     }
 
-    public char getColor(){
-        return this.color;
-    }
-
-    public void setRowPos(int rowIndex){
-        this.boardPosition[0] = rowIndex;
-    }
-
-    public void setColumnPos(int columnIndex){
-        this.boardPosition[1] = columnIndex;
+    public char getCharacter(){
+        return character;
     }
 }

@@ -87,7 +87,7 @@ public class Game {
             String askColumnMessage = String.format("\n(%s) Select a column (1 - 7): ", currentPlayerName);
             int indexOfColumnPick = console.inputInt(askColumnMessage);
 
-            while(!board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
+            while(!board.updateBoardOnColumn(indexOfColumnPick, new Coin((playerTurn == 1) ? Coin.RED_COIN_CHARACTER : Coin.YELLOW_COIN_CHARACTER))){
                 indexOfColumnPick = console.inputInt("");
             }
 
