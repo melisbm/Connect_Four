@@ -55,25 +55,9 @@ public class Board {
         return sb.toString();
     }
 
-    public boolean updateBoardOnColumn(int indexOfColumn, Coin coin){
-
-        indexOfColumn -= 1;
-
-        if(indexOfColumn < 0 || indexOfColumn >= columns){
-            System.out.print("\nInvalid column. Pick another column: ");
-            return false;
-        }
+    public void updateBoardOnColumn(int indexOfColumn, Coin coin){
 
         int coinsInColumn = columnCoins[indexOfColumn];
-
-        if(columnOverflow(coinsInColumn)){
-            System.out.print("\nColumn is full. Pick another column: ");
-            return false;
-        }
-
-        if(columnOverflow(coinsInColumn)){
-            return true;
-        }
 
         int indexOfRow = rows - coinsInColumn - 1;
 
@@ -94,11 +78,11 @@ public class Board {
         }
 
         width = right - left + 1;
-
-        return true;
     }
 
-    public boolean columnOverflow(int coinsInColumn){
+    public boolean isColumnOverflow(int indexOfColumn){
+
+        int coinsInColumn = columnCoins[indexOfColumn];
         return coinsInColumn >= rows;
     }
 
@@ -175,7 +159,7 @@ public class Board {
         return false;
     }
 
-    public int getCoinsOnBoard(){
-        return coinsOnBoard;
+    public int getColumns() {
+        return columns;
     }
 }

@@ -84,12 +84,30 @@ public class Game {
             console.println(board.boardInfo());
             console.println(board.boardToString());
 
-            String askColumnMessage = String.format("\n(%s) Select a column (1 - 7): ", currentPlayerName);
+            String askColumnMessage = String.format("(%s) Select a column (1 - 7): ", currentPlayerName);
             int indexOfColumnPick = console.inputInt(askColumnMessage);
 
-            while(!board.updateBoardOnColumn(indexOfColumnPick, new Coin((playerTurn == 1) ? Coin.RED_COIN_CHARACTER : Coin.YELLOW_COIN_CHARACTER))){
-                indexOfColumnPick = console.inputInt("");
+            while ( indexOfColumnPick - 1 < 0 || indexOfColumnPick - 1 >= board.getColumns() ){
+
+                String invalidColumnMessage = String.format("Invalid column. Type a number between 1 and %d: ", board.getColumns());
+                indexOfColumnPick = console.inputInt(invalidColumnMessage);
             }
+
+            while ( board.isColumnOverflow(indexOfColumnPick - 1) ){
+
+                indexOfColumnPick = console.inputInt("Column is full. Pick another column: ");
+
+                while ( indexOfColumnPick - 1 < 0 || indexOfColumnPick - 1 >= board.getColumns() ){
+
+                    String invalidColumnMessage = String.format("Invalid column. Type a number between 1 and %d: ", board.getColumns());
+                    indexOfColumnPick = console.inputInt(invalidColumnMessage);
+                }
+            }
+
+            board.updateBoardOnColumn(indexOfColumnPick - 1,
+                                      new Coin((playerTurn == 1)
+                                              ? Coin.RED_COIN_CHARACTER
+                                              : Coin.YELLOW_COIN_CHARACTER));
 
             if(board.isWinRound()){
 
