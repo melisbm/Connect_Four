@@ -3,7 +3,6 @@ package Game;
 import Board.*;
 import Console.Console;
 import Player.Player;
-import jdk.jshell.JShellConsole;
 
 public class Game {
 
@@ -20,7 +19,11 @@ public class Game {
         console = new Console();
     }
 
-    private void askForPlayersName(Player player1, Player player2){
+    private String[] askForPlayersName(){
+
+        String[] playersName = new String[2];
+        playersName[0] = "Player 1";
+        playersName[1] = "Player 2";
 
         char chooseNamesInput = console.inputChar("Do you want to set custom player names? (y/n): ");
         String formatedInput = (chooseNamesInput + "").toLowerCase();
@@ -34,11 +37,13 @@ public class Game {
         if (formatedInput.equals("y")){
 
             String playersName1 = console.input("Who is Player 1: ");
-            player1.setPlayerName(playersName1.trim());
+            playersName[0] = playersName1.trim();
 
             String playersName2 = console.input("Who is Player 2: ");
-            player2.setPlayerName(playersName2.trim());
+            playersName[1] = playersName2.trim();
         }
+
+        return playersName;
     }
 
     public void startGame(){
@@ -49,10 +54,10 @@ public class Game {
 
     private void gameSetUp(){
 
-        player1 = new Player(null);
-        player2 = new Player(null);
+        String[] playersNames = askForPlayersName();
 
-        askForPlayersName(player1, player2);
+        player1 = new Player(playersNames[0]);
+        player2 = new Player(playersNames[1]);
 
         board = new Board();
 

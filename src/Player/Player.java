@@ -10,24 +10,11 @@ public class Player {
     public static int totalPlayers = 0;
 
     public Player(String playerName){
-        if(totalPlayers++ == 0){
-            setFirstTurn();
-        }
-
-        if(playerName != null){
-            this.playerName = playerName;
-        }
-        else{
-            setPlayerName(this.playerName + ((firstTurn) ? " 1" : " 2"));
-        }
+        this.playerName = playerName;
     }
 
     public void setFirstTurn() {
         this.firstTurn = true;
-    }
-
-    public void setPlayerName(String playerName){
-        this.playerName = playerName;
     }
 
     public void setWinner() {
