@@ -182,6 +182,10 @@ public class Board {
         return false;
     }
 
+    public boolean isTie(){
+        return coinsOnBoard >= rows * columns;
+    }
+
     public int getColumns() {
         return columns;
     }

@@ -11,7 +11,6 @@ public class Game {
     private Player player1;
     private Player player2;
 
-    private int turnCount = 0;
 
     private Board board;
 
@@ -60,8 +59,6 @@ public class Game {
         player2 = new Player(playersNames[1]);
 
         board = new Board();
-
-        turnCount = 0;
     }
 
     private String getCurrentPlayerName(int playerTurn){
@@ -75,7 +72,10 @@ public class Game {
 
     private void gameLoop(){
 
-        while(!board.isWinRound()){
+        MoveResult moveResult = MoveResult.NONE;
+        int turnCount = 0;
+
+        while(moveResult == MoveResult.NONE){
 
             int playerTurn = (turnCount % 2) + 1;
 
@@ -87,17 +87,29 @@ public class Game {
             int indexOfColumnPick = askColumnIndex(currentPlayerName);
 
             board.updateBoardOnColumn(indexOfColumnPick - 1,
-                                      new Coin((playerTurn == 1)
-                                              ? Coin.RED_COIN_CHARACTER
-                                              : Coin.YELLOW_COIN_CHARACTER));
+                    new Coin((playerTurn == 1)
+                            ? Coin.RED_COIN_CHARACTER
+                            : Coin.YELLOW_COIN_CHARACTER));
 
-            if(board.isWinRound()){
+            if(board.isWinRound()) moveResult = MoveResult.WIN;
+            else if(board.isTie()) moveResult = MoveResult.TIE;
 
-                console.println("\n==Game Over==");
-                console.println(currentPlayerName + " WINS");
-                console.println(board.boardToString());
+            switch (moveResult){
+
+                case MoveResult.WIN:
+
+                    console.println("\n==Game Over==");
+                    console.println(currentPlayerName + " WINS");
+                    console.println(board.boardToString());
+                    break;
+
+                case MoveResult.TIE:
+
+                    console.println("\n==Game Over==");
+                    console.println("No player wins, game ended in a tie.");
+                    console.println(board.boardToString());
+                    break;
             }
-
             turnCount++;
         }
     }
