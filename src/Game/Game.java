@@ -84,25 +84,7 @@ public class Game {
             console.println(board.boardInfo());
             console.println(board.boardToString());
 
-            String askColumnMessage = String.format("(%s) Select a column (1 - 7): ", currentPlayerName);
-            int indexOfColumnPick = console.inputInt(askColumnMessage);
-
-            while ( indexOfColumnPick - 1 < 0 || indexOfColumnPick - 1 >= board.getColumns() ){
-
-                String invalidColumnMessage = String.format("Invalid column. Type a number between 1 and %d: ", board.getColumns());
-                indexOfColumnPick = console.inputInt(invalidColumnMessage);
-            }
-
-            while ( board.isColumnOverflow(indexOfColumnPick - 1) ){
-
-                indexOfColumnPick = console.inputInt("Column is full. Pick another column: ");
-
-                while ( indexOfColumnPick - 1 < 0 || indexOfColumnPick - 1 >= board.getColumns() ){
-
-                    String invalidColumnMessage = String.format("Invalid column. Type a number between 1 and %d: ", board.getColumns());
-                    indexOfColumnPick = console.inputInt(invalidColumnMessage);
-                }
-            }
+            int indexOfColumnPick = askColumnIndex(currentPlayerName);
 
             board.updateBoardOnColumn(indexOfColumnPick - 1,
                                       new Coin((playerTurn == 1)
@@ -118,5 +100,38 @@ public class Game {
 
             turnCount++;
         }
+    }
+
+    private int askColumnIndex(String currentPlayerName){
+
+        String askColumnMessage = String.format("(%s) Select a column (1 - 7): ", currentPlayerName);
+        int indexOfColumnPick = console.inputInt(askColumnMessage);
+
+        indexOfColumnPick = validateIndexOfColumn(indexOfColumnPick);
+        indexOfColumnPick = validateColumnOverflow(indexOfColumnPick);
+
+        return indexOfColumnPick;
+    }
+
+    private int validateIndexOfColumn(int indexOfColumnPick){
+
+        while ( indexOfColumnPick - 1 < 0 || indexOfColumnPick - 1 >= board.getColumns() ){
+
+            String invalidColumnMessage = String.format("Invalid column. Type a number between 1 and %d: ", board.getColumns());
+            indexOfColumnPick = console.inputInt(invalidColumnMessage);
+        }
+
+        return indexOfColumnPick;
+    }
+
+    private int validateColumnOverflow(int indexOfColumnPick){
+
+        while ( board.isColumnOverflow(indexOfColumnPick - 1) ){
+
+            indexOfColumnPick = console.inputInt("Column is full. Pick another column: ");
+            indexOfColumnPick = validateIndexOfColumn(indexOfColumnPick);
+        }
+
+        return indexOfColumnPick;
     }
 }
