@@ -1,3 +1,5 @@
+package Board;
+
 public class Coin {
     private char color = 'R';
     private int[] boardPosition = new int[2];

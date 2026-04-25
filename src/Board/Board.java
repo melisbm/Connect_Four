@@ -1,4 +1,4 @@
-import java.util.*;
+package Board;
 
 public class Board {
     private int rows = 6;

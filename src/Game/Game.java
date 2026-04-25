@@ -1,3 +1,8 @@
+package Game;
+
+import Board.*;
+import Player.Player;
+
 import java.util.Scanner;
 
 public class Game {
@@ -15,10 +20,10 @@ public class Game {
         String chooseNamesInput = sc.nextLine().trim().toLowerCase();
 
         if (chooseNamesInput.equals("y") || chooseNamesInput.equals("yes")){
-            System.out.print("Who is Player 1: ");
+            System.out.print("Who is Player.Player 1: ");
             player1.setPlayerName(sc.nextLine().trim());
 
-            System.out.print("Who is Player 2: ");
+            System.out.print("Who is Player.Player 2: ");
             player2.setPlayerName(sc.nextLine().trim());
         }
     }
@@ -70,7 +75,7 @@ public class Game {
             }
 
             if(board.isWinRound()){
-                System.out.println("\n==Game Over==");
+                System.out.println("\n==Game.Game Over==");
                 System.out.println(currentPlayerName + " WINS");
                 System.out.println(board.boardToString());
             }

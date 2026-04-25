@@ -1,3 +1,5 @@
+package Player;
+
 public class Player {
     private String playerName = "Player";
     private int coinsPlaced = 0;
