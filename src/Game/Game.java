@@ -1,12 +1,13 @@
 package Game;
 
 import Board.*;
+import Console.Console;
 import Player.Player;
-
-import java.util.Scanner;
+import jdk.jshell.JShellConsole;
 
 public class Game {
-    private Scanner sc = new Scanner(System.in);
+
+    private Console console;
 
     private Player player1;
     private Player player2;
@@ -15,26 +16,39 @@ public class Game {
 
     private Board board;
 
+    public Game(){
+        console = new Console();
+    }
+
     private void askForPlayersName(Player player1, Player player2){
-        System.out.print("Do you want to set custom player names? (y/N): ");
-        String chooseNamesInput = sc.nextLine().trim().toLowerCase();
 
-        if (chooseNamesInput.equals("y") || chooseNamesInput.equals("yes")){
-            System.out.print("Who is Player.Player 1: ");
-            player1.setPlayerName(sc.nextLine().trim());
+        char chooseNamesInput = console.inputChar("Do you want to set custom player names? (y/n): ");
+        String formatedInput = (chooseNamesInput + "").toLowerCase();
 
-            System.out.print("Who is Player.Player 2: ");
-            player2.setPlayerName(sc.nextLine().trim());
+        while (!formatedInput.equals("y") && !formatedInput.equals("n")){
+
+            chooseNamesInput = console.inputChar("Invalid input, type Y or N: ");
+            formatedInput = (chooseNamesInput + "").toLowerCase();
+        }
+
+        if (formatedInput.equals("y")){
+
+            String playersName1 = console.input("Who is Player 1: ");
+            player1.setPlayerName(playersName1.trim());
+
+            String playersName2 = console.input("Who is Player 2: ");
+            player2.setPlayerName(playersName2.trim());
         }
     }
 
     public void startGame(){
         gameSetUp();
         gameLoop();
-        sc.close();
+        console.close();
     }
 
     private void gameSetUp(){
+
         player1 = new Player(null);
         player2 = new Player(null);
 
@@ -62,22 +76,21 @@ public class Game {
 
             String currentPlayerName = getCurrentPlayerName(playerTurn);
 
-            System.out.println(board.boardInfo());
-            System.out.println(board.boardToString());
+            console.println(board.boardInfo());
+            console.println(board.boardToString());
 
-            System.out.printf("\n(%s) Select a column (1 - 7): ", currentPlayerName);
-
-            int indexOfColumnPick = sc.nextInt();
+            String askColumnMessage = String.format("\n(%s) Select a column (1 - 7): ", currentPlayerName);
+            int indexOfColumnPick = console.inputInt(askColumnMessage);
 
             while(!board.updateBoardOnColumn(indexOfColumnPick, new Coin(playerTurn))){
-                indexOfColumnPick = sc.nextInt();
-                sc.nextLine();
+                indexOfColumnPick = console.inputInt("");
             }
 
             if(board.isWinRound()){
-                System.out.println("\n==Game.Game Over==");
-                System.out.println(currentPlayerName + " WINS");
-                System.out.println(board.boardToString());
+
+                console.println("\n==Game Over==");
+                console.println(currentPlayerName + " WINS");
+                console.println(board.boardToString());
             }
 
             turnCount++;
