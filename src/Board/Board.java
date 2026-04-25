@@ -96,27 +96,27 @@ public class Board {
 
         if(enoughCoinsOnBoard) {
 
-            if(width >= 4){
-                return checkRows();
-            }
-            if(height >= 4){
-                return checkColumns();
+            if(width >= 4 || height >= 4){
+                return isAnyRowWin() || isAnyColumnWin() || isAnyDiagonalWin();
             }
         }
 
         return false;
     }
 
-    public boolean checkRows(){
+    public boolean isAnyRowWin(){
 
-        for(int i = 0; i < rows; i++){
+        int endColumn = columns - 4;
 
-            for(int start = 0; start <= columns - 4; start++){
+        for(int row = 0; row < rows; row++){
 
-                if(boardCells[i][start] != ' ' &&
-                        boardCells[i][start] == boardCells[i][start + 1] &&
-                        boardCells[i][start] == boardCells[i][start + 2] &&
-                        boardCells[i][start] == boardCells[i][start + 3]){
+            for(int col = 0; col <= endColumn; col++){
+
+                if(boardCells[row][col] != ' ' &&
+                        boardCells[row][col] == boardCells[row][col + 1] &&
+                        boardCells[row][col] == boardCells[row][col + 2] &&
+                        boardCells[row][col] == boardCells[row][col + 3]){
+
                     return true;
                 }
             }
@@ -125,15 +125,19 @@ public class Board {
         return false;
     }
 
-    private boolean checkColumns(){
-        for(int i = 0; i < columns; i++){
+    private boolean isAnyColumnWin(){
 
-            for(int start = left; start <= rows - 4; start++){
+        int endRow = rows - 4;
 
-                if(boardCells[start][i] != ' ' &&
-                        boardCells[start][i] == boardCells[start + 1][i] &&
-                        boardCells[start][i] == boardCells[start + 2][i] &&
-                        boardCells[start][i] == boardCells[start + 3][i]){
+        for(int col = 0; col < columns; col++){
+
+            for(int row = 0; row <= endRow; row++){
+
+                if(boardCells[row][col] != ' ' &&
+                        boardCells[row][col] == boardCells[row + 1][col] &&
+                        boardCells[row][col] == boardCells[row + 2][col] &&
+                        boardCells[row][col] == boardCells[row + 3][col]){
+
                     return true;
                 }
             }
@@ -142,15 +146,34 @@ public class Board {
         return false;
     }
 
-    private boolean checkDiagonal(){
-        for(int i = 0; i < columns; i++){
+    private boolean isAnyDiagonalWin(){
 
-            for(int start = left; start <= rows - 4; start++){
+        int endRow = rows - 4;
+        int endColumn = columns - 4;
 
-                if(boardCells[start][i] != ' ' &&
-                        boardCells[start][i] == boardCells[start + 1][i] &&
-                        boardCells[start][i] == boardCells[start + 2][i] &&
-                        boardCells[start][i] == boardCells[start + 3][i]){
+        for(int row = 0; row <= endRow; row++){
+
+            for(int col = 0; col <= endColumn; col++){
+
+                if(boardCells[row][col] != ' ' &&
+                        boardCells[row][col] == boardCells[row + 1][col + 1] &&
+                        boardCells[row][col] == boardCells[row + 2][col + 2] &&
+                        boardCells[row][col] == boardCells[row + 3][col + 3]){
+
+                    return true;
+                }
+            }
+        }
+
+        for(int row = 0; row <= endRow; row++){
+
+            for(int col = 3; col < columns; col++){
+
+                if(boardCells[row][col] != ' ' &&
+                        boardCells[row][col] == boardCells[row + 1][col - 1] &&
+                        boardCells[row][col] == boardCells[row + 2][col - 2] &&
+                        boardCells[row][col] == boardCells[row + 3][col - 3]){
+
                     return true;
                 }
             }
